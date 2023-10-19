@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../utils/connection');
 
-const Anime = sequelize.define('anime', {
+const New = sequelize.define('new', {
     title: {
         type: DataTypes.STRING,
         allowNull: false
@@ -10,24 +10,11 @@ const Anime = sequelize.define('anime', {
         type: DataTypes.STRING,
         allowNull: false
     },
-
-    trailer: {
-        type: DataTypes.STRING,
-        allowNull: false
-
-    },
-    image: {
-        type: DataTypes.STRING,
-        allowNull: false
-
-    },
-    ReleaseDate: {
+    dateNotice: {
         type: DataTypes.DATE,
-        allowNull: false
+        defaultValue: DataTypes.NOW
 
     },
-
-
 });
 
-module.exports = Anime;
+module.exports = New;

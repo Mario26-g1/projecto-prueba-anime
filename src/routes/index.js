@@ -5,6 +5,10 @@ const routerAnime = require('./anime.router');
 const routerListAnime = require('./listAnime.router');
 const routerComment = require('./comment.router');
 const routerPost = require('./post.router');
+const routerRol = require('./rol.router');
+const routerPermiso = require('./permiso.router');
+const routerNew = require('./new.router');
+const routerReview = require('./review.router');
 
 
 const router = express.Router();
@@ -16,7 +20,10 @@ router.use('/animes', routerAnime)
 router.use('/listanimes', routerListAnime)
 router.use('/comments', routerComment)
 router.use('/posts', routerPost)
-// router.use('/videos', routerVideo)
+router.use('/roles', routerRol)
+router.use('/Permisos', routerPermiso)
+router.use('/news', routerNew)
+router.use('/reviews', routerReview)
 
 
 

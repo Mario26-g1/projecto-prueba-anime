@@ -1,7 +1,8 @@
 const catchError = require('../utils/catchError');
 const User = require('../models/User');
 const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
+const Permiso = require('../models/Permiso');
 
 
 const getAll = catchError(async (req, res) => {
@@ -16,6 +17,7 @@ const create = catchError(async (req, res) => {
 
     const body = { name, email, password: hashPassword }
     const result = await User.create(body);
+
 
     return res.status(201).json(result);
 });

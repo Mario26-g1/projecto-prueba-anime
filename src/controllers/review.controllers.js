@@ -1,34 +1,33 @@
 const catchError = require('../utils/catchError');
-const Anime = require('../models/Anime');
+const Review = require('../models/Review');
 
 const getAll = catchError(async (req, res) => {
-    const results = await Anime.findAll();
+    const results = await Review.findAll();
     return res.json(results);
 });
 
 const create = catchError(async (req, res) => {
-
-    const result = await Anime.create(req.body);
+    const result = await Review.create(req.body);
     return res.status(201).json(result);
 });
 
 const getOne = catchError(async (req, res) => {
     const { id } = req.params;
-    const result = await Anime.findByPk(id);
+    const result = await Review.findByPk(id);
     if (!result) return res.sendStatus(404);
     return res.json(result);
 });
 
 const remove = catchError(async (req, res) => {
     const { id } = req.params;
-    const result = await Anime.destroy({ where: { id } });
+    const result = await Review.destroy({ where: { id } });
     if (!result) return res.sendStatus(404);
     return res.sendStatus(204);
 });
 
 const update = catchError(async (req, res) => {
     const { id } = req.params;
-    const result = await Anime.update(
+    const result = await Review.update(
         req.body,
         { where: { id }, returning: true }
     );

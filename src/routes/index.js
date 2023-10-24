@@ -19,16 +19,16 @@ const router = express.Router();
 
 // colocar las rutas aquí
 router.use('/users', routerUser)
-router.use('/genres', verifyJwt, verifyRol, verifyPermiso, routerGenre)
-router.use('/animes', verifyJwt, verifyRol, verifyPermiso, routerAnime)
-router.use('/listanimes', verifyJwt, verifyRol, verifyPermiso, routerListAnime)
+router.use('/genres', verifyJwt, routerGenre)
+router.use('/animes', verifyJwt, routerAnime)
+router.use('/listanimes', verifyJwt, routerListAnime)
 router.use('/comments', verifyJwt, routerComment)
-router.use('/posts', verifyJwt, verifyRol, verifyPermiso, routerPost)
+router.use('/posts', verifyJwt, routerPost)
 router.use('/roles', verifyJwt, routerRol)
 router.use('/Permisos', verifyJwt, routerPermiso)
-router.use('/news', verifyJwt, verifyRol, verifyPermiso, routerNew)
-router.use('/reviews', verifyJwt, verifyRol, verifyPermiso, routerReview)
-router.use('/images', verifyJwt, verifyRol, verifyPermiso, routerImage)
+router.use('/news', verifyJwt, routerNew)
+router.use('/reviews', verifyJwt, routerReview)
+router.use('/images', verifyJwt, routerImage)
 
 
 

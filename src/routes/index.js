@@ -9,21 +9,26 @@ const routerRol = require('./rol.router');
 const routerPermiso = require('./permiso.router');
 const routerNew = require('./new.router');
 const routerReview = require('./review.router');
+const routerImage = require('./image.router');
+const { verifyJwt } = require('../utils/verifyJwt');
+const verifyRol = require('../utils/verifyRol');
+const verifyPermiso = require('../utils/verifyPermiso');
 
 
 const router = express.Router();
 
 // colocar las rutas aquí
 router.use('/users', routerUser)
-router.use('/genres', routerGenre)
-router.use('/animes', routerAnime)
-router.use('/listanimes', routerListAnime)
-router.use('/comments', routerComment)
-router.use('/posts', routerPost)
-router.use('/roles', routerRol)
-router.use('/Permisos', routerPermiso)
-router.use('/news', routerNew)
-router.use('/reviews', routerReview)
+router.use('/genres', verifyJwt, verifyRol, verifyPermiso, routerGenre)
+router.use('/animes', verifyJwt, verifyRol, verifyPermiso, routerAnime)
+router.use('/listanimes', verifyJwt, verifyRol, verifyPermiso, routerListAnime)
+router.use('/comments', verifyJwt, routerComment)
+router.use('/posts', verifyJwt, verifyRol, verifyPermiso, routerPost)
+router.use('/roles', verifyJwt, routerRol)
+router.use('/Permisos', verifyJwt, routerPermiso)
+router.use('/news', verifyJwt, verifyRol, verifyPermiso, routerNew)
+router.use('/reviews', verifyJwt, verifyRol, verifyPermiso, routerReview)
+router.use('/images', verifyJwt, verifyRol, verifyPermiso, routerImage)
 
 
 

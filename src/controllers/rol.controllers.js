@@ -7,7 +7,10 @@ const getAll = catchError(async (req, res) => {
 });
 
 const create = catchError(async (req, res) => {
-    const result = await Rol.create(req.body);
+    const { id } = req.user
+    const { title } = req.body
+    const body = { userId: id, title }
+    const result = await Rol.create(body);
     return res.status(201).json(result);
 });
 

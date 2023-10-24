@@ -7,7 +7,10 @@ const getAll = catchError(async (req, res) => {
 });
 
 const create = catchError(async (req, res) => {
-    const result = await Comment.create(req.body);
+    const { id } = req.user;
+    const { content } = req.body;
+    const body = { content, userId: id }
+    const result = await Comment.create(body);
     return res.status(201).json(result);
 });
 

@@ -1,6 +1,7 @@
 const Anime = require("./Anime");
 const Comment = require("./Comment");
 const Genre = require("./Genre");
+const Image = require("./Image");
 const ListAnime = require("./ListAnime");
 const New = require("./New");
 const Permiso = require("./Permiso");
@@ -32,8 +33,7 @@ New.belongsTo(User)
 User.hasMany(Review)//userId
 Review.belongsTo(User)
 
-User.hasMany(Rol)//userId
-Rol.belongsTo(User)
+User.belongsTo(Rol);
 
 
 User.belongsToMany(Permiso, { through: 'UsersPermiso' })
@@ -63,6 +63,9 @@ Comment.belongsTo(Post)
 
 Review.hasMany(Comment)//ReviewId
 Comment.belongsTo(Review)
+
+Image.belongsTo(Anime)//animeId
+Anime.hasMany(Image)
 
 
 

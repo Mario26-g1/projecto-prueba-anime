@@ -11,8 +11,7 @@ const routerNew = require('./new.router');
 const routerReview = require('./review.router');
 const routerImage = require('./image.router');
 const { verifyJwt } = require('../utils/verifyJwt');
-const verifyRol = require('../utils/verifyRol');
-const verifyPermiso = require('../utils/verifyPermiso');
+
 
 
 const router = express.Router();

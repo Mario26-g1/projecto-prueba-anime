@@ -7,7 +7,11 @@ const getAll = catchError(async (req, res) => {
 });
 
 const create = catchError(async (req, res) => {
-    const result = await Review.create(req.body);
+    const userId = req.user.id
+    const { animeId } = req.params;
+    const { rating, content } = req.body;
+    const body = { rating, content, animeId, userId }
+    const result = await Review.create(body);
     return res.status(201).json(result);
 });
 

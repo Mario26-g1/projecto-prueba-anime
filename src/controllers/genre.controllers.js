@@ -6,7 +6,10 @@ const getAll = catchError(async (req, res) => {
     return res.json(result)
 });
 const Create = catchError(async (req, res) => {
-    const result = await Genre.create(req.body)
+    const userId = req.user.id
+    const { title } = req.body
+    const body = { title, userId }
+    const result = await Genre.create(body)
     return res.json(result)
 });
 

@@ -2,6 +2,7 @@ const Anime = require("./Anime");
 const Comment = require("./Comment");
 const Genre = require("./Genre");
 const Image = require("./Image");
+const Like = require("./Like");
 const ListAnime = require("./ListAnime");
 const New = require("./New");
 const Permiso = require("./Permiso");
@@ -42,8 +43,8 @@ Permiso.belongsToMany(User, { through: 'UsersPermiso' })
 
 //======== Relacion restante=========//
 
-Anime.hasMany(ListAnime)//animeId
-ListAnime.belongsTo(Anime)
+Anime.belongsToMany(ListAnime, { through: 'AnimeLista' });
+ListAnime.belongsToMany(Anime, { through: 'AnimeLista' });
 
 Anime.hasMany(Comment)//animeId
 Comment.belongsTo(Anime)
@@ -54,6 +55,11 @@ Genre.belongsTo(Anime)
 Anime.hasMany(Review)//animeId
 Review.belongsTo(Anime)
 
+Anime.hasMany(Genre)
+Genre.belongsTo(Anime)
+
+Anime.hasMany(Like)
+Like.belongsTo(Anime)
 
 
 //==============================
@@ -64,8 +70,11 @@ Comment.belongsTo(Post)
 Review.hasMany(Comment)//ReviewId
 Comment.belongsTo(Review)
 
-Image.belongsTo(Anime)//animeId
+
 Anime.hasMany(Image)
+Image.belongsTo(Anime)
+
+User.hasMany(Image)
 
 
 

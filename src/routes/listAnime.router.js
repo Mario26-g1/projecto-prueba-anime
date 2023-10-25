@@ -12,4 +12,10 @@ routerListAnime.route('/:id')
     .delete(remove)
     .put(update);
 
+
+
+// routerListAnime.route('/:id/anime')
+//     .post(agregarAnimeALista)
+
+
 module.exports = routerListAnime;

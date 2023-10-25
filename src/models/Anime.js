@@ -21,8 +21,23 @@ const Anime = sequelize.define('anime', {
         allowNull: false
 
     },
-    ReleaseDate: {
-        type: DataTypes.DATE,
+    status: {
+        type: DataTypes.STRING,
+        allowNull: false
+
+    },
+    episode: {
+        type: DataTypes.STRING,
+        allowNull: false
+
+    },
+    releaseDate: {
+        type: DataTypes.STRING,
+        allowNull: false
+
+    },
+    lastepisode: {
+        type: DataTypes.STRING,
         allowNull: false
 
     },

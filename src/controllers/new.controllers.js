@@ -7,7 +7,10 @@ const getAll = catchError(async (req, res) => {
 });
 
 const create = catchError(async (req, res) => {
-    const result = await New.create(req.body);
+    const userId = req.user.id
+    const { title, description, dateNotice } = req.body
+    const body = { title, description, dateNotice, userId }
+    const result = await New.create(body);
     return res.status(201).json(result);
 });
 

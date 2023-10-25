@@ -40,7 +40,7 @@ const create = catchError(async (req, res) => {
     });
 
     // Obtén los permisos correspondientes al tipo de usuario
-    const permisosUsuarioNormal = await Permiso.findAll({ where: { title: ['Agregar a la lista', 'Crear lista', 'Crear post', 'Crear comentario'] } });
+    const permisosUsuarioNormal = await Permiso.findAll({ where: { title: ['Agregar lista', 'Crear lista', 'Crear post', 'Crear comment'] } });
 
     // Asigna los permisos al usuario
     await usuario.setPermisos(permisosUsuarioNormal);

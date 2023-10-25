@@ -11,6 +11,7 @@ const routerNew = require('./new.router');
 const routerReview = require('./review.router');
 const routerImage = require('./image.router');
 const { verifyJwt } = require('../utils/verifyJwt');
+const routerLike = require('./like.router');
 
 
 
@@ -27,7 +28,8 @@ router.use('/roles', verifyJwt, routerRol)
 router.use('/Permisos', verifyJwt, routerPermiso)
 router.use('/news', verifyJwt, routerNew)
 router.use('/reviews', verifyJwt, routerReview)
-router.use('/images', verifyJwt, routerImage)
+router.use('/images', routerImage)
+router.use('/likes', verifyJwt, routerLike)
 
 
 

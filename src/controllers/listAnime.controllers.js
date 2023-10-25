@@ -1,19 +1,48 @@
 const catchError = require('../utils/catchError');
 const ListAnime = require('../models/ListAnime');
+const Anime = require('../models/Anime');
+
 
 const getAll = catchError(async (req, res) => {
-    const results = await ListAnime.findAll();
+    const userId = req.user.id
+    const results = await ListAnime.findAll({
+        where: { userId },
+        include: [
+            {
+                model: Anime,
+                attributes: ['title', 'id'],
+                through: {
+                    attributes: [], // Esto excluye todos los atributos de la tabla pivot (AnimeLista)
+                }
+            }
+        ]
+    });
     return res.json(results);
 });
 
 const create = catchError(async (req, res) => {
-    const result = await ListAnime.create(req.body);
+    const { id } = req.user
+    const { title, description } = req.body
+    const body = { title, description, userId: id }
+    const result = await ListAnime.create(body);
     return res.status(201).json(result);
 });
 
 const getOne = catchError(async (req, res) => {
+    const userId = req.user.id
     const { id } = req.params;
-    const result = await ListAnime.findByPk(id);
+    const result = await ListAnime.findByPk(id, {
+        where: { userId },
+        include: [
+            {
+                model: Anime,
+                attributes: ['title'],
+                through: {
+                    attributes: [], // Esto excluye todos los atributos de la tabla pivot (AnimeLista)
+                }
+            }
+        ]
+    });
     if (!result) return res.sendStatus(404);
     return res.json(result);
 });
@@ -35,10 +64,13 @@ const update = catchError(async (req, res) => {
     return res.json(result[1][0]);
 });
 
+
 module.exports = {
     getAll,
     create,
     getOne,
     remove,
-    update
+    update,
+
+
 }

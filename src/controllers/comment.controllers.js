@@ -1,15 +1,33 @@
 const catchError = require('../utils/catchError');
 const Comment = require('../models/Comment');
+const Anime = require('../models/Anime');
+const Post = require('../models/Post');
+const Review = require('../models/Review');
 
 const getAll = catchError(async (req, res) => {
-    const results = await Comment.findAll();
+    const results = await Comment.findAll({
+        include: [
+            {
+                model: Anime,
+                attributes: ['title']
+            },
+            {
+                model: Post,
+                attributes: ['title']
+            },
+            {
+                model: Review,
+                attributes: ['description']
+            }
+        ]
+    });
     return res.json(results);
 });
 
 const create = catchError(async (req, res) => {
     const { id } = req.user;
-    const { content } = req.body;
-    const body = { content, userId: id }
+    const { reviewId, postId, animeId, content } = req.body;
+    const body = { content, userId: id, animeId, reviewId, postId }
     const result = await Comment.create(body);
     return res.status(201).json(result);
 });

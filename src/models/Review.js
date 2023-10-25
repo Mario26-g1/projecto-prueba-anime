@@ -2,14 +2,13 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../utils/connection');
 
 const Review = sequelize.define('review', {
-    description: {
-        type: DataTypes.STRING,
-        allowNull: false
+    rating: {
+        type: DataTypes.INTEGER, // Puedes usar un rango específico, como 1-5 estrellas
+        allowNull: false,
     },
-    reviewDate: {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW
-
+    content: {
+        type: DataTypes.TEXT,
+        allowNull: false,
     },
 });
 

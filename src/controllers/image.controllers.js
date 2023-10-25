@@ -1,15 +1,19 @@
 const catchError = require('../utils/catchError');
 const Image = require('../models/Image');
 
+
+
 const getAll = catchError(async (req, res) => {
     const result = await Image.findAll()
     return res.json(result)
 });
 
 const create = catchError(async (req, res) => {
+    const { id } = req.user
+
     const { filename } = req.file;
     const url = `${req.protocol}://${req.headers.host}/uploads/${filename}`
-    const result = await Image.create({ filename, url })
+    const result = await Image.create({ filename, url, userId: id })
     return res.status(201).json(result)
 });
 

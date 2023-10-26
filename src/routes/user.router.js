@@ -18,8 +18,8 @@ routerUser.route('/me')
 
 
 routerUser.route('/:id')
-    .get(getOne)
-    .delete(remove)
-    .put(update);
+    .get(verifyJwt, getOne)
+    .delete(verifyJwt, remove)
+    .put(verifyJwt, update);
 
 module.exports = routerUser;

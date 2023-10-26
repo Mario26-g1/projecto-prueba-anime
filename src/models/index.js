@@ -74,6 +74,12 @@ Comment.belongsTo(Review)
 Anime.hasMany(Image)
 Image.belongsTo(Anime)
 
+Post.hasMany(Image)
+Image.belongsTo(Post)
+
+New.hasMany(Image)
+Image.belongsTo(New)
+
 User.hasMany(Image)
 
 

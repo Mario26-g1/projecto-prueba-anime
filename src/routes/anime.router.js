@@ -1,25 +1,27 @@
 const { getAll, create, getOne, remove, update, AddLista, AddGenre } = require('../controllers/anime.controllers');
 const express = require('express');
+const { verifyJwt } = require('../utils/verifyJwt');
+
 
 const routerAnime = express.Router();
 
 routerAnime.route('/')
     .get(getAll)
-    .post(create)
+    .post(verifyJwt, create)
 
 
 
 
 routerAnime.route('/:id')
     .get(getOne)
-    .delete(remove)
-    .put(update);
+    .delete(verifyJwt, remove)
+    .put(verifyJwt, update);
 
 routerAnime.route('/:id/listanime')
-    .post(AddLista)
+    .post(verifyJwt, AddLista)
 
 routerAnime.route('/:id/genres')
-    .post(AddGenre)
+    .post(verifyJwt, AddGenre)
 
 
 

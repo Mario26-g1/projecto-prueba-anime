@@ -17,7 +17,7 @@ const getAll = catchError(async (req, res) => {
             },
             {
                 model: Review,
-                attributes: ['description']
+                attributes: ['content']
             }
         ]
     });

@@ -23,7 +23,7 @@ const getAll = catchError(async (req, res) => {
 });
 
 const create = catchError(async (req, res) => {
-    const { name, email, password } = req.body;
+    const { name, email, password, profilePicture } = req.body;
     const rol = await Rol.findOne({ where: { title: 'usuario normal' } });
 
     if (!rol) {
@@ -36,6 +36,7 @@ const create = catchError(async (req, res) => {
         name: name,
         email: email,
         password: hashPassword,
+        profilePicture: profilePicture,
         rolId: rol.id
     });
 
@@ -49,6 +50,7 @@ const create = catchError(async (req, res) => {
         id: usuario.id,
         name: usuario.name,
         email: usuario.email,
+        profilePicture: usuario.profilePicture,
         rol: rol.title,
         permisos: permisosUsuarioNormal.map(permiso => permiso.title)
     };

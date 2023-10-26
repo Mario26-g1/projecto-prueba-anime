@@ -6,6 +6,10 @@ const Post = sequelize.define('post', {
         type: DataTypes.STRING,
         allowNull: false
     },
+    image: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
     content: {
         type: DataTypes.STRING,
         allowNull: false

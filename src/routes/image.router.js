@@ -1,12 +1,15 @@
-const { getAll, create } = require('../controllers/image.controllers');
+const { getAll, create, remove } = require('../controllers/image.controllers');
 const express = require('express');
 const upload = require('../utils/multer');
-const { verifyJwt } = require('../utils/verifyJwt');
+
 
 const routerImage = express.Router();
 
 routerImage.route('/')
     .get(getAll)
-    .post(upload.single('image'), verifyJwt, create)
+    .post(upload.single('image'), create)
+
+routerImage.route('/:id')
+    .delete(remove)
 
 module.exports = routerImage;

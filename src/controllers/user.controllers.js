@@ -24,11 +24,11 @@ const getAll = catchError(async (req, res) => {
 
 const create = catchError(async (req, res) => {
     const { name, email, password, profilePicture } = req.body;
-    const rol = await Rol.findOne({ where: { title: 'usuario normal' } });
+    //const rol = await Rol.findOne({ where: { title: 'usuario normal' } });
 
-    if (!rol) {
-        return res.status(400).json({ message: 'El rol no se encontró' });
-    }
+    // if (!rol) {
+    //     return res.status(400).json({ message: 'El rol no se encontró' });
+    // }
 
     // Crea el usuario y asigna el rol automáticamente
     const hashPassword = await bcrypt.hash(password, 10);
@@ -37,25 +37,25 @@ const create = catchError(async (req, res) => {
         email: email,
         password: hashPassword,
         profilePicture: profilePicture,
-        rolId: rol.id
+        //rolId: rol.id
     });
 
     // Obtén los permisos correspondientes al tipo de usuario
-    const permisosUsuarioNormal = await Permiso.findAll({ where: { title: ['Agregar lista', 'Crear lista', 'Crear post', 'Crear comment'] } });
+    // const permisosUsuarioNormal = await Permiso.findAll({ where: { title: ['Agregar lista', 'Crear lista', 'Crear post', 'Crear comment'] } });
 
-    // Asigna los permisos al usuario
-    await usuario.setPermisos(permisosUsuarioNormal);
+    // // Asigna los permisos al usuario
+    // await usuario.setPermisos(permisosUsuarioNormal);
 
-    const response = {
-        id: usuario.id,
-        name: usuario.name,
-        email: usuario.email,
-        profilePicture: usuario.profilePicture,
-        rol: rol.title,
-        permisos: permisosUsuarioNormal.map(permiso => permiso.title)
-    };
+    // const response = {
+    //     id: usuario.id,
+    //     name: usuario.name,
+    //     email: usuario.email,
+    //     profilePicture: usuario.profilePicture,
+    //     rol: rol.title,
+    //     permisos: permisosUsuarioNormal.map(permiso => permiso.title)
+    // };
 
-    return res.status(201).json(response);
+    return res.status(201).json(usuario);
 });
 
 

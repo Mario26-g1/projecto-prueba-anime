@@ -12,6 +12,7 @@ const routerReview = require('./review.router');
 const routerImage = require('./image.router');
 const { verifyJwt } = require('../utils/verifyJwt');
 const routerLike = require('./like.router');
+const routerListAnimePre = require('./listaPred.router');
 
 
 
@@ -30,6 +31,7 @@ router.use('/news', routerNew)
 router.use('/reviews', routerReview)
 router.use('/images', verifyJwt, routerImage)
 router.use('/likes', routerLike)
+router.use('/listasPres', routerListAnimePre)
 
 
 

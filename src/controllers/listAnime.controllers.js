@@ -64,6 +64,30 @@ const update = catchError(async (req, res) => {
     return res.json(result[1][0]);
 });
 
+const removeAnimeList = catchError(async (req, res) => {
+    const { listanimeId, animeId } = req.params;
+
+    // Primero, verifica si la lista existe
+    const list = await ListAnime.findByPk(listanimeId);
+    if (!list) {
+        return res.status(404).json({ error: 'Lista no encontrada' });
+    }
+
+    // Luego, verifica si el anime existe
+    const anime = await Anime.findByPk(animeId);
+    if (!anime) {
+        return res.status(404).json({ error: 'Anime no encontrado' });
+    }
+
+    // Ahora puedes eliminar el anime de la lista utilizando el método adecuado de Sequelize
+    await list.removeAnime(anime);
+
+    // Responde con un mensaje de éxito
+    return res.json({ message: 'Anime eliminado de la lista con éxito' });
+});
+
+
+
 
 module.exports = {
     getAll,
@@ -71,6 +95,7 @@ module.exports = {
     getOne,
     remove,
     update,
+    removeAnimeList
 
 
 }

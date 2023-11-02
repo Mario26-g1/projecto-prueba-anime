@@ -18,6 +18,10 @@ const User = sequelize.define('user', {
     profilePicture: {
         type: DataTypes.STRING,
         allowNull: true // Puedes usar STRING para almacenar la URL de la imagen
+    },
+    biografy: {
+        type: DataTypes.STRING,
+        allowNull: true // Puedes usar STRING para almacenar la URL de la imagen
     }
 });
 

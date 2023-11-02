@@ -9,8 +9,25 @@ const getAll = catchError(async (req, res) => {
 const create = catchError(async (req, res) => {
     const userId = req.user.id
     const { title, image, description, dateNotice } = req.body
-    const body = { title, image, description, dateNotice, userId }
-    const result = await New.create(body);
+
+    let imageResult = null; // Inicializamos imageResult como nulo
+
+    if (req.file) {
+        // Si req.file está definido (es decir, se proporcionó una imagen), creamos una entrada de imagen
+        const { filename } = req.file;
+        const url = `${req.protocol}://${req.headers.host}/uploads/${filename}`;
+        imageResult = await Image.create({ filename, url });
+    }
+
+    // Luego, creamos una entrada de usuario en la base de datos, asociando la imagen si está definida
+    const result = await New.create({
+        title,
+        email,
+        image: imageResult ? `${imageResult.url}` : null, // Asociamos la ID de la imagen de perfil si existe
+        description,
+        dateNotice
+
+    });
     return res.status(201).json(result);
 });
 

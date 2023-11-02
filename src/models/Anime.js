@@ -4,41 +4,41 @@ const sequelize = require('../utils/connection');
 const Anime = sequelize.define('anime', {
     title: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
     },
     description: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
     },
 
     trailer: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
 
     },
     image: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
 
     },
     status: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
 
     },
     episode: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
 
     },
     releaseDate: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
 
     },
     lastepisode: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
 
     },
 

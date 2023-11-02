@@ -10,6 +10,7 @@ const Post = require("./Post");
 const Review = require("./Review");
 const Rol = require("./Rol");
 const User = require("./User");
+const ListAnimePre = require("./listAnimePre");
 
 //======== Relacion de User========
 
@@ -37,6 +38,9 @@ Review.belongsTo(User)
 User.belongsTo(Rol);
 
 
+
+
+
 User.belongsToMany(Permiso, { through: 'UsersPermiso' })
 Permiso.belongsToMany(User, { through: 'UsersPermiso' })
 
@@ -45,6 +49,9 @@ Permiso.belongsToMany(User, { through: 'UsersPermiso' })
 
 Anime.belongsToMany(ListAnime, { through: 'AnimeLista' });
 ListAnime.belongsToMany(Anime, { through: 'AnimeLista' });
+
+Anime.belongsToMany(ListAnimePre, { through: 'AnimeListaPre' });
+ListAnimePre.belongsToMany(Anime, { through: 'AnimeListaPre' });
 
 Anime.hasMany(Comment)//animeId
 Comment.belongsTo(Anime)

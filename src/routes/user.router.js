@@ -13,6 +13,7 @@ routerUser.route('/login')
     .post(login)
 
 
+
 routerUser.route('/me')
     .get(verifyJwt, logged)
 
@@ -21,7 +22,7 @@ routerUser.route('/me')
 routerUser.route('/:id')
     .get(verifyJwt, getOne)
     .delete(verifyJwt, remove)
-    .put(verifyJwt, update);
+    .put(upload.single('profilePicture'), verifyJwt, update);
 
 
 

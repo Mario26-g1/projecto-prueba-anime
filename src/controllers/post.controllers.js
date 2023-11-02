@@ -6,11 +6,28 @@ const getAll = catchError(async (req, res) => {
     return res.json(results);
 });
 
+
 const create = catchError(async (req, res) => {
     const userId = req.user.id
-    const { title, image, content } = req.body;
-    const body = { title, image, content, userId }
-    const result = await Post.create(body);
+    const { title, image, content } = req.body
+
+    let imageResult = null; // Inicializamos imageResult como nulo
+
+    if (req.file) {
+        // Si req.file está definido (es decir, se proporcionó una imagen), creamos una entrada de imagen
+        const { filename } = req.file;
+        const url = `${req.protocol}://${req.headers.host}/uploads/${filename}`;
+        imageResult = await Image.create({ filename, url });
+    }
+
+    // Luego, creamos una entrada de usuario en la base de datos, asociando la imagen si está definida
+    const result = await Post.create({
+        title,
+        image: imageResult ? `${imageResult.url}` : null, // Asociamos la ID de la imagen de perfil si existe
+        content,
+        userId
+
+    });
     return res.status(201).json(result);
 });
 

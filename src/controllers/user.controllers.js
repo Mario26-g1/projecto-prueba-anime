@@ -176,55 +176,79 @@ const remove = catchError(async (req, res) => {
 
 
 
+// const update = catchError(async (req, res) => {
+//     const { id } = req.params;
+//     delete req.body.password;
+
+//     const { rolId, permisos, ...updateFields } = req.body; // Excluimos 'password', 'rolId' y capturamos 'permisos'
+
+//     // Utilizamos User.update para realizar la actualización de campos excluyendo 'password'
+//     const [rowsUpdated, [updatedUser]] = await User.update(updateFields, {
+//         where: { id },
+//         returning: true // Esto te permite obtener el usuario actualizado
+//     });
+
+//     // Verifica si se actualizó algún usuario
+//     if (rowsUpdated === 0) {
+//         return res.sendStatus(404); // No se encontró el usuario para actualizar
+//     }
+
+//     if (rolId !== undefined) {
+//         // Si se proporcionó un nuevo 'rolId', actualizamos el campo 'rolId' en la base de datos
+//         await User.update({ rolId }, { where: { id } });
+//     }
+
+//     if (permisos !== undefined) {
+//         // Si se proporcionaron nuevos permisos, convierte los nombres de permisos en IDs
+//         const permisosIds = await Permiso.findAll({ where: { title: permisos } });
+
+//         if (permisosIds.length > 0) {
+//             const user = await User.findByPk(id);
+//             if (user) {
+//                 // Borra todos los permisos existentes del usuario
+//                 await user.setPermisos([]);
+//                 // Asigna los nuevos permisos al usuario
+//                 await user.setPermisos(permisosIds);
+//             }
+//         }
+//     }
+
+//     // Verifica si los permisos se actualizaron correctamente
+//     const updatedUserWithPermisos = await User.findByPk(id, {
+//         include: [{ model: Permiso, as: 'permisos' }]
+//     });
+
+//     if (updatedUserWithPermisos) {
+//         return res.json({ updatedUser: updatedUserWithPermisos });
+//     } else {
+//         return res.sendStatus(404); // Si no se encontró el usuario actualizado con permisos
+//     }
+// });
+
+
 const update = catchError(async (req, res) => {
     const { id } = req.params;
-    delete req.body.password;
+    const { name, email, profilePicture, biografy } = req.body; // Datos del usuario, incluyendo la imagen
 
-    const { rolId, permisos, ...updateFields } = req.body; // Excluimos 'password', 'rolId' y capturamos 'permisos'
+    // Verifica si se proporcionó una nueva imagen de perfil
+    if (profilePicture) {
+        // Si se proporcionó una imagen de perfil, crea una entrada de imagen en la base de datos
+        const url = `${req.protocol}://${req.headers.host}/uploads/${profilePicture.filename}`;
+        const imageResult = await Image.create({ filename: profilePicture.filename, url });
 
-    // Utilizamos User.update para realizar la actualización de campos excluyendo 'password'
-    const [rowsUpdated, [updatedUser]] = await User.update(updateFields, {
-        where: { id },
-        returning: true // Esto te permite obtener el usuario actualizado
-    });
-
-    // Verifica si se actualizó algún usuario
-    if (rowsUpdated === 0) {
-        return res.sendStatus(404); // No se encontró el usuario para actualizar
-    }
-
-    if (rolId !== undefined) {
-        // Si se proporcionó un nuevo 'rolId', actualizamos el campo 'rolId' en la base de datos
-        await User.update({ rolId }, { where: { id } });
-    }
-
-    if (permisos !== undefined) {
-        // Si se proporcionaron nuevos permisos, convierte los nombres de permisos en IDs
-        const permisosIds = await Permiso.findAll({ where: { title: permisos } });
-
-        if (permisosIds.length > 0) {
-            const user = await User.findByPk(id);
-            if (user) {
-                // Borra todos los permisos existentes del usuario
-                await user.setPermisos([]);
-                // Asigna los nuevos permisos al usuario
-                await user.setPermisos(permisosIds);
-            }
-        }
-    }
-
-    // Verifica si los permisos se actualizaron correctamente
-    const updatedUserWithPermisos = await User.findByPk(id, {
-        include: [{ model: Permiso, as: 'permisos' }]
-    });
-
-    if (updatedUserWithPermisos) {
-        return res.json({ updatedUser: updatedUserWithPermisos });
+        // Actualiza el usuario incluyendo el nuevo ID de la imagen de perfil
+        await User.update({ name, email, profilePicture: imageResult.id, biografy }, { where: { id } });
     } else {
-        return res.sendStatus(404); // Si no se encontró el usuario actualizado con permisos
+        // Si no se proporcionó una nueva imagen de perfil, actualiza el usuario sin modificar la imagen
+        await User.update({ name, email, biografy }, { where: { id } });
     }
-});
 
+    const updatedUser = await User.findByPk(id);
+
+    if (!updatedUser) return res.sendStatus(404);
+
+    return res.json(updatedUser);
+});
 
 
 

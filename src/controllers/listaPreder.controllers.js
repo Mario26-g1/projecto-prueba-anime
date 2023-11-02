@@ -1,6 +1,7 @@
 const catchError = require('../utils/catchError');
 const Anime = require('../models/Anime');
-const ListAnimePre = require('../models/listAnimePre');
+const ListAnimePre = require('../models/ListAnimePre');
+
 
 const getAll = catchError(async (req, res) => {
     const results = await ListAnimePre.findAll({

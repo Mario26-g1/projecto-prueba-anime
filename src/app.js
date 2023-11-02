@@ -3,7 +3,7 @@ const helmet = require('helmet');
 const cors = require('cors');
 const router = require('./routes');
 const errorHandler = require('./utils/errorHandler');
-const { ListAnimePre } = require('./models/listAnimePre');
+const { ListAnimePre } = require('./models/ListAnimePre');
 require('dotenv').config();
 const path = require('path');
 const createDefaultLists = require('./utils/listPre');

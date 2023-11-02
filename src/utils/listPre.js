@@ -1,4 +1,4 @@
-const ListAnimePre = require("../models/listAnimePre");
+const ListAnimePre = require("../models/ListAnimePre");
 
 
 const defaultLists = [

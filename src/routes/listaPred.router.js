@@ -1,4 +1,4 @@
-const { getAll, remove, removeAnimeList, } = require('../controllers/listaPreder.controllers');
+const { getAll, removeAnimeList, } = require('../controllers/listaPreder.controllers');
 const express = require('express');
 
 const routerListAnimePre = express.Router();

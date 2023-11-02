@@ -10,7 +10,7 @@ const Post = require("./Post");
 const Review = require("./Review");
 const Rol = require("./Rol");
 const User = require("./User");
-const ListAnimePre = require("./listAnimePre");
+const ListAnimePre = require("./ListAnimePre");
 
 //======== Relacion de User========
 

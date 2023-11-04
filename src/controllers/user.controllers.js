@@ -264,12 +264,12 @@ const login = catchError(async (req, res) => {
     const isValid = await bcrypt.compare(password, user.password)
     if (!isValid) return res.sendStatus(401)
 
-    const token = jwt.sign(
-        { user },
-        process.env.TOKEN,
-        { expiresIn: "1d" }
+    // const token = jwt.sign(
+    //     { user },
+    //     process.env.TOKEN,
+    //     { expiresIn: "1d" }
 
-    )
+    // )
     return res.json({ user, token })
 
 

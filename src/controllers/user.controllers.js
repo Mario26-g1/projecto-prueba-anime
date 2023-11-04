@@ -266,7 +266,7 @@ const login = catchError(async (req, res) => {
 
     const token = jwt.sign(
         { user },
-        process.env.TOKEN_SECRET,
+        process.env.TOKEN,
         { expiresIn: "1d" }
     )
 

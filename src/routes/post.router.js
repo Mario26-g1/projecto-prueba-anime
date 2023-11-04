@@ -9,7 +9,7 @@ const routerPost = express.Router();
 
 routerPost.route('/')
     .get(getAll)
-    .post(upload.single('image'), verifyJwt, create)
+    .post(upload.single('image'), create)
 
 routerPost.route('/:id')
     .get(getOne)

@@ -11,7 +11,7 @@ routerUser.route('/')
     .post(upload.single('profilePicture'), create)
 
 routerUser.route('/login')
-    .post(login)
+    .post(verifyJwt, login)
 
 
 

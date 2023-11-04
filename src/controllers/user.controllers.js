@@ -258,22 +258,21 @@ const update = catchError(async (req, res) => {
 
 const login = catchError(async (req, res) => {
     const { email, password } = req.body;
-    const user = await User.findOne({ where: { email } });
-    if (!user) return res.sendStatus(401);
+    const user = await User.findOne({ where: { email } })
+    if (!user) return res.sendStatus(401)
 
     const isValid = await bcrypt.compare(password, user.password)
     if (!isValid) return res.sendStatus(401)
 
     const token = jwt.sign(
         { user },
-        process.env.TOKEN,
+        process.env.TOKEN_SECRET,
         { expiresIn: "1d" }
-
     )
+
+
     return res.json({ user, token })
-
-
-});
+})
 
 const logged = catchError(async (req, res) => {
     const user = req.user

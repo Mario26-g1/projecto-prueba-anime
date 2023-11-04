@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(helmet({
     crossOriginResourcePolicy: false,
 }));
-app.use(cors());
+app.use(cors({ credentials: true, origin: process.env.FRONTEND }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Importa el módulo para crear las listas predeterminadas

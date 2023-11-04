@@ -1,4 +1,5 @@
-const { getAll, create, getOne, remove, update } = require('../controllers/new.controllers');
+const { getAll, getOne, update } = require('../controllers/new.controllers');
+const { create, remove } = require('../controllers/imageCloudinary.controllers');
 const express = require('express');
 const { verifyJwt } = require('../utils/verifyJwt');
 const upload = require('../utils/multer');

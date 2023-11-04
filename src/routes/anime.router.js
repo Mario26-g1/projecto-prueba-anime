@@ -1,4 +1,6 @@
-const { getAll, create, getOne, remove, update, AddLista, AddGenre, AddListaPre } = require('../controllers/anime.controllers');
+const { getAll, getOne, update, AddLista, AddGenre, AddListaPre } = require('../controllers/anime.controllers');
+const { create, remove } = require('../controllers/imageCloudinary.controllers');
+
 const express = require('express');
 const { verifyJwt } = require('../utils/verifyJwt');
 const upload = require('../utils/multer');

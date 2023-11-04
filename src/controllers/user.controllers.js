@@ -84,7 +84,7 @@ const create = catchError(async (req, res) => {
         password: hashPassword,
         profilePicture: imageResult ? `${imageResult.url}` : null // Asociamos la ID de la imagen de perfil si existe
     });
-    console.log(result)
+
     return res.status(201).json(result);
 
 

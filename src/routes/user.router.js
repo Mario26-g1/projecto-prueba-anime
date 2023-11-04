@@ -1,4 +1,6 @@
-const { getAll, getOne, create, remove, update, login, logged } = require('../controllers/user.controllers');
+const { getAll, getOne, update, login, logged } = require('../controllers/user.controllers');
+const { create, remove } = require('../controllers/userCloudinary.controllers');
+
 
 
 const express = require('express');
